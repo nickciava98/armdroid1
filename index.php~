@@ -1,0 +1,180 @@
+<?php
+	exec("sudo chmod 777 /dev/ttyACM0");
+
+	/*print("	<link rel = 'icon' href = 'favicon.ico'>");
+	print("	<link rel = 'apple-touchstartup-image' href = 'favicon.ico'>");
+	print("	<link rel = 'apple-touch-icon' href = 'favicon.ico'>");*/
+	print("	<html xmlns = 'http://www.w3.org/1999/xhtml'>
+				<head>
+					<meta http-equiv = 'Content-Type' content = 'text/html; charset=UTF-8'/>
+
+					<title>
+						Armdroid 1
+					</title>
+
+					<link href = 'screen.css' rel = 'stylesheet' media = 'screen' type = 'text/css' />
+				</head>
+
+				<body>
+					<center>
+						<span style = 'font-family: Arial; font-size: 120px; color: #FFFFFF;'>
+							Robot
+						</span>
+						
+						<br/><br/><br/>
+						
+						<form action = '#' method = 'post'>			
+							<table>
+								<tr>
+									<td>
+										<input style = 'width: 500px; height: 200px; font-size: 80px' type = 'submit' name = 'auto' value = 'AUTO'/>
+									</td>
+								</tr>
+							</table>
+							
+							<br/><br/><br/>
+
+							<table>
+								<tr>
+									<td>
+										<input style = 'width: 500px; height: 200px; font-size: 80px' type = 'submit' name = 'base' value = 'BASE'/>
+									</td>
+								</tr>
+							</table>
+							
+							<br/><br/><br/>
+
+							<table>
+								<tr>
+									<td>
+										<input style = 'width: 500px; height: 200px; font-size: 80px' type = 'submit' name = 'spalla' value = 'SPALLA'/>
+									</td>
+								</tr>
+							</table>
+							
+							<br/><br/><br/>
+
+							<table>
+								<tr>
+									<td>
+										<input style = 'width: 500px; height: 200px; font-size: 80px' type = 'submit' name = 'braccio' value = 'BRACCIO'/>
+									</td>
+								</tr>
+							</table>
+							
+							<br/><br/><br/>
+
+							<table>
+								<tr>
+									<td>
+										<input style = 'width: 500px; height: 200px; font-size: 80px' type = 'submit' name = 'polso1' value = 'POLSO1'/>
+									</td>
+								</tr>
+							</table>
+							
+							<br/><br/><br/>
+
+							<table>
+								<tr>
+									<td>
+										<input style = 'width: 500px; height: 200px; font-size: 80px' type = 'submit' name = 'polso2' value = 'POLSO2'/>
+									</td>
+								</tr>
+							</table>
+							
+							<br/><br/><br/>
+
+							<table>
+								<tr>
+									<td>
+										<input style = 'width: 500px; height: 200px; font-size: 80px' type = 'submit' name = 'mano' value = 'MANO'/>
+									</td>
+								</tr>
+							</table>
+							
+							<br/><br/><br/><br/><br/><br/>
+							
+							<span style = 'font-family: Arial; font-size: 80px; color: #FFFFFF;'>
+								Only for iOS Users
+							</span>
+							
+							<br><br><br>
+							
+							<table>				
+								<tr>
+									<td>
+										<input style = 'width: 500px; height: 200px; font-size: 80px' type = 'submit' name = 'voice' value = 'VOICE'/>
+									</td>
+								</tr>
+							</table>							
+						</form>
+						
+						<br/><br/><br/><br/><br/><br/>
+						
+						<span style = 'font-family: Arial; font-size: 45px; color: #FFFFFF;'>
+							Copyright (c) 2016 Niccol&ograve Ciavarella, Silvio Merla.
+						</span> 
+						
+						<br/>
+						
+						<span style = 'font-family: Arial; font-size: 45px; color: #FFFFFF;'>
+							All rights reserved.
+						</span>
+					</center>
+				</body>	
+			</html>");
+			
+	include "php_serial.class.php";
+ 
+	$serial = new phpSerial;
+	 
+	$serial->deviceSet("/dev/ttyACM0"); 
+	$serial->confBaudRate(9600);
+	$serial->confParity("none");
+	$serial->confCharacterLength(8);
+	$serial->confStopBits(1);
+	$serial->confFlowControl("none");
+	$serial->deviceOpen();
+	
+	if(isset($_POST["auto"]))
+	{
+		$serial->sendMessage("0");
+	}
+	
+	if(isset($_POST["base"]))
+	{
+		$serial->sendMessage("1");
+	}
+	
+	if(isset($_POST["spalla"]))
+	{
+		$serial->sendMessage("2");
+	}
+	
+	if(isset($_POST["braccio"]))
+	{
+		$serial->sendMessage("3");
+	}
+	
+	if(isset($_POST["polso1"]))
+	{
+		$serial->sendMessage("4");
+	}
+	
+	if(isset($_POST["polso2"]))
+	{
+		$serial->sendMessage("5");
+	}
+	
+	if(isset($_POST["mano"]))
+	{
+		$serial->sendMessage("6");
+	}
+	
+	if(isset($_POST["voice"]))
+	{
+		header("location: voice.php");
+	}
+
+	$serial->deviceClose();
+?>
